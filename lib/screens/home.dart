@@ -10,17 +10,48 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  static Marker createNewMarker(LatLng coord) {
+    //method to create a marker for each latlng point
+    Marker mk = new Marker(
+        width: 65.0,
+        height: 65.0,
+        point: coord,
+        builder: (context) => new Container(
+            child: IconButton(
+                icon: Icon(Icons.location_on),
+                color: Colors.brown[500],
+                iconSize: 50.0,
+                onPressed: () {
+                  print('tapped');
+                })));
+    return mk;
+  }
+
+  static final ark = LatLng(-36.7897367, 174.77);
+  static final shelf = LatLng(-36.768, 174.737);
+  static final toasted = LatLng(-36.768, 174.585);
+  static final corellis = LatLng(-36.829, 174.797);
+  static final scarecrow = LatLng(-36.8497, 174.765);
+  static Marker markerArk, markerShelf, m_toasted, m_corellis, m_scarecrow;
+
   static final List<LatLng> _points = [
-    LatLng(-36.7897367, 174.77), // ark company takapuna
-    LatLng(-36.8486, 174.766), //the shelf
-    LatLng(-36.768, 174.737), //toasted coffee roasters
-    LatLng(-36.829, 174.797), //corelli's
-    LatLng(-36.8497, 174.765), // scarecrow
+    ark, // ark company takapuna
+    shelf, //the shelf
+    toasted,
+    corellis,
+    scarecrow,
   ];
 
   final PopupController _popupLayerController = PopupController();
 
-  List<Marker> _markers;
+  List<Marker> _markers = [
+    markerArk = createNewMarker(ark),
+    markerShelf = createNewMarker(shelf),
+    m_toasted = createNewMarker(toasted),
+    m_corellis = createNewMarker(corellis),
+    m_scarecrow = createNewMarker(scarecrow),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,25 +70,9 @@ class _HomeState extends State<Home> {
                 urlTemplate:
                     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                 subdomains: ['a', 'b', 'c']),
-            new MarkerLayerOptions(markers: [
-              new Marker(
-                  width: 65.0,
-                  height: 65.0,
-                  point: new LatLng(-36.7897367, 174.77),
-                  builder: (context) => new Container(
-                      child: IconButton(
-                          icon: Icon(Icons.location_on),
-                          color: Colors.brown[500],
-                          iconSize: 50.0,
-                          onPressed: () {
-                            print('tapped');
-                          }))),
-            ]), //specific url for map template
+            new MarkerLayerOptions(markers: _markers),
+            //specific url for map template
           ],
         ));
-  }
-
-  Marker createNewMarker() {
-    //method to create a marker for each latlng point
   }
 }
