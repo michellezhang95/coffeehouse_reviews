@@ -22,34 +22,30 @@ class _HomeState extends State<Home> {
                 color: Colors.brown[500],
                 iconSize: 50.0,
                 onPressed: () {
-                  print('tapped');
+                  print('tapped' + coord.toString());
                 })));
     return mk;
   }
 
   static final ark = LatLng(-36.7897367, 174.77);
-  static final shelf = LatLng(-36.768, 174.737);
-  static final toasted = LatLng(-36.768, 174.585);
+  static final copper = LatLng(-36.7311, 174.7129);
+  static final toasted = LatLng(-36.767, 174.737429);
   static final corellis = LatLng(-36.829, 174.797);
   static final scarecrow = LatLng(-36.8497, 174.765);
-  static Marker markerArk, markerShelf, m_toasted, m_corellis, m_scarecrow;
-
-  static final List<LatLng> _points = [
-    ark, // ark company takapuna
-    shelf, //the shelf
-    toasted,
-    corellis,
-    scarecrow,
-  ];
+  static final Marker markerArk = createNewMarker(ark),
+      markerCopper = createNewMarker(copper),
+      markerToasted = createNewMarker(toasted),
+      markerCorellis = createNewMarker(corellis),
+      markerScarecrow = createNewMarker(scarecrow);
 
   final PopupController _popupLayerController = PopupController();
 
   List<Marker> _markers = [
-    markerArk = createNewMarker(ark),
-    markerShelf = createNewMarker(shelf),
-    m_toasted = createNewMarker(toasted),
-    m_corellis = createNewMarker(corellis),
-    m_scarecrow = createNewMarker(scarecrow),
+    markerArk,
+    markerCopper,
+    markerToasted,
+    markerCorellis,
+    markerScarecrow,
   ];
 
   @override
@@ -62,6 +58,7 @@ class _HomeState extends State<Home> {
         ),
         body: new FlutterMap(
           options: new MapOptions(
+            screenSize: new Size(50.0, 20.0),
             center: new LatLng(-36.817401, 174.743),
             minZoom: 10.0,
           ),
