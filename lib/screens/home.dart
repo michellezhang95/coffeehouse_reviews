@@ -55,6 +55,15 @@ class _HomeState extends State<Home> {
         appBar: AppBar(
           title: Text('Coffee House Reviews'),
           backgroundColor: Colors.brown[300],
+          elevation: 20.0,
+          actions: [
+            IconButton(
+              icon: Icon(Icons.dehaze),
+              onPressed: () {
+                print('hello');
+              },
+            )
+          ],
         ),
         body: new FlutterMap(
           options: new MapOptions(
