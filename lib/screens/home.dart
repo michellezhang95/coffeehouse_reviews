@@ -103,9 +103,9 @@ Marker createNewMarker(LatLng coord, String review) {
               color: Colors.brown[500],
               iconSize: 50.0,
               onPressed: () {
-                showBottomSheet(
+                showModalBottomSheet<void>(
                     context: context,
-                    builder: (builder) {
+                    builder: (BuildContext context) {
                       return Container(
                         child: Text(review),
                         padding: EdgeInsets.all(40.0),
@@ -116,4 +116,5 @@ Marker createNewMarker(LatLng coord, String review) {
 }
 
 //method to generate bottom sheets for each new marker on the map
+//modal so thebottom sheet must be interacted before the user can reaccess the map
 void _settingBottomSheet(context) {}
