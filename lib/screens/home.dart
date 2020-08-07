@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:coffeehouse_reviews/map/location.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map_marker_popup/extension_api.dart';
 import 'package:latlong/latlong.dart';
 import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
+import 'package:coffeehouse_reviews/screens/location_info.dart';
+import 'package:coffeehouse_reviews/models/cafe.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -10,7 +14,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  static Marker createNewMarker(LatLng coord) {
+  static Marker createNewMarker(LatLng coord, String review) {
     //method to create a marker for each latlng point
     Marker mk = new Marker(
         width: 65.0,
@@ -22,30 +26,42 @@ class _HomeState extends State<Home> {
                 color: Colors.brown[500],
                 iconSize: 50.0,
                 onPressed: () {
-                  print('tapped' + coord.toString());
+                  showModalBottomSheet(
+                      context: context,
+                      builder: (builder) {
+                        return Container(
+                            child: Text(review), padding: EdgeInsets.all(40.0));
+                      });
                 })));
     return mk;
   }
 
-  static final ark = LatLng(-36.7897367, 174.77);
+  static final ark = new Cafe(
+      address: '123 test street',
+      id: 1,
+      name: 'Test Cafe',
+      review: 'The flat white is great here.',
+      location: LatLng(-36.7897367, 174.77));
+
+  //static final ark = LatLng(-36.7897367, 174.77);
   static final copper = LatLng(-36.7311, 174.7129);
   static final toasted = LatLng(-36.767, 174.737429);
   static final corellis = LatLng(-36.829, 174.797);
   static final scarecrow = LatLng(-36.8497, 174.765);
-  static final Marker markerArk = createNewMarker(ark),
-      markerCopper = createNewMarker(copper),
+  static final Marker markerArk = createNewMarker(ark.location, ark.review);
+  /* markerCopper = createNewMarker(copper),
       markerToasted = createNewMarker(toasted),
       markerCorellis = createNewMarker(corellis),
-      markerScarecrow = createNewMarker(scarecrow);
+      markerScarecrow = createNewMarker(scarecrow); */
 
   final PopupController _popupLayerController = PopupController();
 
   List<Marker> _markers = [
     markerArk,
-    markerCopper,
+    /*  markerCopper,
     markerToasted,
     markerCorellis,
-    markerScarecrow,
+    markerScarecrow, */
   ];
 
   @override
@@ -54,13 +70,17 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.brown[100],
         appBar: AppBar(
           title: Text('Coffee House Reviews'),
-          backgroundColor: Colors.brown[300],
+          // backgroundColor: Colors.brown[300],
           elevation: 20.0,
           actions: [
             IconButton(
               icon: Icon(Icons.dehaze),
               onPressed: () {
-                print('hello');
+                Navigator.push(
+                  // navigate to locations in list form
+                  context,
+                  MaterialPageRoute(builder: (context) => LocInfo()),
+                );
               },
             )
           ],
