@@ -16,6 +16,9 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  var infoWindowVisible = false;
+  GlobalKey<State> key = new GlobalKey();
+
   static final ark = new Cafe(
       address: '123 test street',
       id: 1,
@@ -105,10 +108,13 @@ Marker createNewMarker(LatLng coord, String review) {
               onPressed: () {
                 showModalBottomSheet<void>(
                     context: context,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40.0)),
                     builder: (BuildContext context) {
                       return Container(
-                        child: Text(review),
-                        padding: EdgeInsets.all(40.0),
+                        //color: Color(0xFF73737),
+                        child: Text('     ' + review),
+                        height: 50.0,
                       );
                     });
               })));
