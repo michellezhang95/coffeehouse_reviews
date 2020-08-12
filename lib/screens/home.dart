@@ -117,4 +117,4 @@ Marker createNewMarker(LatLng coord, String review) {
 
 //method to generate bottom sheets for each new marker on the map
 //modal so thebottom sheet must be interacted before the user can reaccess the map
-void _settingBottomSheet(context) {}
+Container _settingBottomSheet(context) {}
